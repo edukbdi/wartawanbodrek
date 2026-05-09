@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wartawan Bodrek di Sekolah | KBDI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* DEFAULT = DARK */
+    :root {
+      --accent: #e87722;
+      --accent-dim: #c25e0e;
+      --ink: #f0e8e0;
+      --ink-2: #c8b8ac;
+      --ink-3: #8a7a72;
+      --paper: #1a1210;
+      --paper-2: #231815;
+      --paper-3: #2e201c;
+      --rule: rgba(232,119,34,0.18);
+    }
+    html.light {
+      --ink: #1a1210;
+      --ink-2: #3d2f27;
+      --ink-3: #6b5a52;
+      --paper: #f5f0eb;
+      --paper-2: #ede5dc;
+      --paper-3: #e0d4c8;
+      --rule: rgba(232,119,34,0.25);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.85;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 8vw, 8rem);
+      overflow: hidden;
+      background: #100c0a;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 65% 30%, rgba(232,119,34,0.13) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 70% at 15% 85%, rgba(180,60,10,0.10) 0%, transparent 55%);
+    }
+    .hero-noise {
+      position: absolute; inset: 0; opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+    .hero-svg {
+      position: absolute;
+      right: -4vw;
+      top: 50%; transform: translateY(-50%);
+      opacity: 0.55;
+      width: clamp(200px, 42vw, 480px);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; max-width: 620px; }
+    .hero-kicker {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-kicker::before { content:''; display:block; width:2rem; height:2px; background:var(--accent); }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 3.5rem);
+      font-weight: 900; line-height: 1.1;
+      color: #f0e8e0; margin-bottom: 1.2rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem; color: #6a5a52;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 0.9rem;
+    }
+
+    /* ARTICLE */
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.2rem, 4vw, 2rem);
+    }
+    p { margin-bottom: 1.35rem; color: var(--ink); font-size: 1.02rem; }
+    p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem; font-weight: 900;
+      float: left; line-height: 0.82;
+      margin: 0.1em 0.12em 0 0; color: var(--accent);
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      font-weight: 700; color: var(--ink);
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--rule);
+    }
+    h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin: 2rem 0 0.6rem;
+    }
+
+    /* PULL QUOTE */
+    .pull-quote {
+      margin: 2.5rem -1.5rem;
+      padding: 2rem 2rem 2rem 2.5rem;
+      border-left: 4px solid var(--accent);
+      background: var(--paper-2); position: relative;
+    }
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 6.5rem; color: var(--accent); opacity: 0.14;
+      position: absolute; top: -0.6rem; left: 0.8rem; line-height: 1;
+    }
+    .pull-quote p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 1.8vw, 1.28rem);
+      font-style: italic; font-weight: 700;
+      color: var(--ink); margin: 0; line-height: 1.55;
+    }
+    .pull-quote p::first-letter { all: unset; }
+    .pull-quote cite {
+      display: block; font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem; font-style: normal;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-3); margin-top: 0.9rem;
+    }
+
+    /* STAT */
+    .stat-row { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin: 2rem 0; }
+    .stat-card { background: var(--paper-2); border: 1px solid var(--paper-3); padding: 1.3rem 1.1rem; position: relative; overflow: hidden; }
+    .stat-card::before { content:''; position:absolute; top:0; left:0; width:100%; height:3px; background:var(--accent); }
+    .stat-num { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:900; color:var(--accent); line-height:1; margin-bottom:0.35rem; }
+    .stat-label { font-family:'DM Sans',sans-serif; font-size:0.75rem; color:var(--ink-3); line-height:1.4; }
+
+    /* MODUS */
+    .modus-box { background:var(--paper-2); border:1px solid var(--paper-3); padding:1.6rem 1.8rem; margin:2rem 0; }
+    .modus-box h3 { margin-top:0; margin-bottom:1rem; }
+    .modus-list { list-style:none; }
+    .modus-list li { display:flex; gap:0.9rem; align-items:flex-start; font-family:'DM Sans',sans-serif; font-size:0.86rem; color:var(--ink-2); line-height:1.55; padding-bottom:0.85rem; margin-bottom:0.85rem; border-bottom:1px solid var(--paper-3); }
+    .modus-list li:last-child { border-bottom:none; padding-bottom:0; margin-bottom:0; }
+    .modus-list li .num { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:var(--accent); opacity:0.32; line-height:1; flex-shrink:0; width:1.7rem; }
+
+    /* SVG SECTION */
+    .svg-section { margin:2.5rem -1.5rem; display:flex; flex-direction:column; align-items:center; gap:0.7rem; }
+    .svg-caption { font-family:'DM Sans',sans-serif; font-size:0.75rem; color:var(--ink-3); text-align:center; font-style:italic; padding:0 1rem; }
+    svg { max-width:100%; height:auto; }
+
+    /* SKENARIO */
+    .skenario { background:var(--paper-3); border-left:4px solid var(--accent-dim); padding:1.4rem 1.7rem; margin:2rem 0; }
+    .skenario-label { font-family:'DM Sans',sans-serif; font-size:0.66rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem; }
+    .skenario p { font-size:0.91rem; line-height:1.75; color:var(--ink-2); font-style:italic; margin:0; }
+    .skenario p::first-letter { all:unset; }
+
+    /* TIPS */
+    .tips-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.9rem; margin:1.5rem 0; }
+    .tip-card { background:var(--paper-2); border:1px solid var(--paper-3); padding:1.1rem; }
+    .tip-header { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.45rem; }
+    .tip-icon { font-size:1.25rem; flex-shrink:0; line-height:1; }
+    .tip-title { font-family:'DM Sans',sans-serif; font-size:0.83rem; font-weight:600; color:var(--ink); }
+    .tip-body { font-family:'DM Sans',sans-serif; font-size:0.78rem; color:var(--ink-3); line-height:1.52; margin:0; }
+    .tip-body::first-letter { all:unset; }
+
+    /* KENAPA BOX */
+    .kenapa-box { background:var(--paper-2); border:1px solid var(--paper-3); border-left:4px solid var(--accent-dim); padding:1.6rem 1.8rem; margin:2rem 0; }
+    .kenapa-label { font-family:'DM Sans',sans-serif; font-size:0.66rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:1.1rem; }
+    .kenapa-item { display:flex; gap:0.9rem; align-items:flex-start; padding-bottom:0.95rem; margin-bottom:0.95rem; border-bottom:1px solid var(--paper-3); }
+    .kenapa-item:last-child { border-bottom:none; padding-bottom:0; margin-bottom:0; }
+    .kenapa-icon { font-size:1.35rem; flex-shrink:0; margin-top:0.1rem; }
+    .kenapa-item strong { display:block; font-family:'DM Sans',sans-serif; font-size:0.86rem; font-weight:600; color:var(--ink); margin-bottom:0.22rem; }
+    .kenapa-item p { font-family:'DM Sans',sans-serif; font-size:0.8rem; color:var(--ink-3); line-height:1.52; margin:0; }
+    .kenapa-item p::first-letter { all:unset; }
+
+    /* HUKUM TABLE */
+    .hukum-wrap { overflow-x:auto; margin:1.5rem 0; }
+    .hukum-table { width:100%; border-collapse:collapse; font-family:'DM Sans',sans-serif; font-size:0.83rem; }
+    .hukum-table thead tr { background:var(--accent); color:#fff; }
+    .hukum-table th { padding:0.75rem 0.9rem; text-align:left; font-weight:600; }
+    .hukum-table td { padding:0.75rem 0.9rem; border-bottom:1px solid var(--paper-3); color:var(--ink-2); vertical-align:top; }
+    .hukum-table tr:nth-child(even) td { background:var(--paper-2); }
+
+    /* DISCORD */
+    .discord-cta { margin:3rem 0 1rem; }
+    .discord-inner { display:flex; align-items:center; gap:1.3rem; background:var(--paper-2); border:1px solid var(--paper-3); border-left:4px solid #5865f2; padding:1.3rem 1.7rem; flex-wrap:wrap; }
+    .discord-icon { font-size:1.7rem; flex-shrink:0; }
+    .discord-text { flex:1; min-width:180px; }
+    .discord-text strong { display:block; font-family:'DM Sans',sans-serif; font-size:0.9rem; font-weight:600; color:var(--ink); margin-bottom:0.22rem; }
+    .discord-text p { font-family:'DM Sans',sans-serif; font-size:0.8rem; color:var(--ink-3); margin:0; line-height:1.5; }
+    .discord-text p::first-letter { all:unset; }
+    .discord-btn { display:inline-block; background:#5865f2; color:#fff; font-family:'DM Sans',sans-serif; font-size:0.8rem; font-weight:600; padding:0.5rem 1.2rem; text-decoration:none; border-radius:4px; flex-shrink:0; transition:background 0.2s; }
+    .discord-btn:hover { background:#4752c4; }
+
+    /* REFERENSI */
+    .referensi { margin-top:3.5rem; padding-top:1.2rem; border-top:1px solid var(--rule); }
+    .referensi h3 { margin-bottom:0.75rem; }
+    .referensi ul { list-style:none; font-family:'DM Sans',sans-serif; font-size:0.76rem; color:var(--ink-3); line-height:1.7; }
+    .referensi ul li { margin-bottom:0.28rem; }
+    .referensi ul li a { color:var(--accent); text-decoration:none; }
+    .referensi ul li a:hover { text-decoration:underline; }
+    .divider { border:none; border-top:1px solid var(--rule); margin:2.5rem 0; }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.62s ease, transform 0.62s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      body { font-size:16px; }
+      .hero { min-height:48vh; padding:1.4rem 1.1rem 1.8rem; }
+      .hero-svg { width:clamp(160px, 48vw, 280px); opacity:0.4; right:-3vw; }
+      .hero h1 { font-size:clamp(1.65rem, 6.5vw, 2.4rem); }
+      .hero-meta { gap:0.65rem; font-size:0.7rem; }
+      .article-wrap { padding:1.8rem 1rem; }
+      h2 { font-size:1.25rem; margin:2rem 0 0.75rem; }
+      p { font-size:0.95rem; }
+      p:first-of-type::first-letter { font-size:2.8rem; }
+      .pull-quote { margin:1.8rem -0.4rem; padding:1.1rem 1rem 1.1rem 1.2rem; }
+      .pull-quote p { font-size:0.97rem; }
+      .pull-quote::before { font-size:4.5rem; }
+      .stat-row { grid-template-columns:1fr 1fr; gap:0.6rem; }
+      .stat-num { font-size:1.9rem; }
+      .modus-box { padding:1.1rem; }
+      .svg-section { margin:2rem -0.4rem; }
+      .tips-grid { grid-template-columns:1fr; gap:0.6rem; }
+      .kenapa-box { padding:1.1rem; }
+      .hukum-table th:nth-child(3), .hukum-table td:nth-child(3) { display:none; }
+      .discord-inner { flex-direction:column; align-items:flex-start; gap:0.9rem; padding:1.1rem; }
+    }
+    @media (max-width: 420px) {
+      .stat-row { grid-template-columns:1fr; }
+      .hero h1 { font-size:1.55rem; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <svg class="hero-svg" viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg">
+    <defs><filter id="hg"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <rect x="20" y="16" width="220" height="270" rx="3" fill="#f5f0eb" opacity="0.18"/>
+    <rect x="20" y="16" width="220" height="30" rx="3" fill="#e87722" opacity="0.55"/>
+    <rect x="34" y="24" width="125" height="7" rx="2" fill="#f5f0eb" opacity="0.85"/>
+    <rect x="34" y="35" width="75" height="4" rx="2" fill="#f5f0eb" opacity="0.45"/>
+    <rect x="34" y="58" width="186" height="3.5" rx="1" fill="#f5f0eb" opacity="0.28"/>
+    <rect x="34" y="67" width="155" height="3.5" rx="1" fill="#f5f0eb" opacity="0.22"/>
+    <rect x="34" y="76" width="170" height="3.5" rx="1" fill="#f5f0eb" opacity="0.28"/>
+    <rect x="34" y="97" width="186" height="3.5" rx="1" fill="#f5f0eb" opacity="0.25"/>
+    <rect x="34" y="106" width="145" height="3.5" rx="1" fill="#f5f0eb" opacity="0.22"/>
+    <rect x="34" y="115" width="165" height="3.5" rx="1" fill="#f5f0eb" opacity="0.28"/>
+    <path d="M20,178 L50,163 L78,183 L108,160 L138,184 L168,158 L198,180 L222,164 L240,178 L240,286 L20,286 Z" fill="#100c0a" opacity="0.92"/>
+    <path d="M20,178 L50,163 L78,183 L108,160 L138,184 L168,158 L198,180 L222,164 L240,178" fill="none" stroke="#e87722" stroke-width="2.5" opacity="0.9" filter="url(#hg)"/>
+    <rect x="108" y="218" width="48" height="75" rx="7" fill="#c8956a" opacity="0.95"/>
+    <ellipse cx="132" cy="216" rx="28" ry="18" fill="#c8956a" opacity="0.95"/>
+    <rect x="106" y="190" width="11" height="30" rx="5.5" fill="#c8956a" opacity="0.95"/>
+    <rect x="120" y="182" width="11" height="36" rx="5.5" fill="#c8956a" opacity="0.95"/>
+    <rect x="134" y="184" width="11" height="34" rx="5.5" fill="#c8956a" opacity="0.95"/>
+    <rect x="148" y="190" width="10" height="28" rx="5" fill="#c8956a" opacity="0.95"/>
+    <rect x="112" y="198" width="42" height="22" rx="2.5" fill="#2d5a1b" opacity="0.95"/>
+    <ellipse cx="133" cy="209" rx="7" ry="7" fill="#4a8a30" opacity="0.8"/>
+    <text x="133" y="213" font-family="serif" font-size="10" fill="#c8f0a0" text-anchor="middle" opacity="0.95">Rp</text>
+    <line x1="272" y1="16" x2="272" y2="344" stroke="#e87722" stroke-width="1.5" opacity="0.3"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-kicker">Pendidikan &middot; KBDI</div>
+    <h1>Ketika Pers Jadi <em>Senjata</em>:<br>Wartawan Bodrek<br>di Lingkungan Sekolah</h1>
+    <div class="hero-meta">
+      <span>&#128197; 2025</span>
+      <span>&#127991; Pendidikan &middot; Literasi Media</span>
+      <span>&#9201; 8 menit baca</span>
+    </div>
+  </div>
+</section>
+
+<div class="article-wrap">
+
+  <p class="reveal">Suatu pagi di sebuah sekolah dasar negeri, seorang pria datang dengan kartu identitas tergantung di leher. Ia mengaku wartawan dari sebuah media online. Tapi bukan kabar prestasi siswa yang ia cari — ia datang menawarkan langganan koran. Ketika pihak sekolah menolak, ia mulai memotret sudut-sudut bangunan yang rusak. Beberapa hari kemudian, sebuah artikel terbit dengan judul yang menuding kepala sekolah menyimpangkan dana BOS. Tidak ada konfirmasi yang layak. Tidak ada data konkret. Hanya foto kerusakan dan tuduhan dari "sumber anonim."</p>
+
+  <p class="reveal">Inilah wajah wartawan bodrek di dunia pendidikan — fenomena yang sudah lama dikenal, tapi masih terus meresahkan kepala sekolah dari Sabang sampai Merauke.</p>
+
+  <div class="svg-section reveal">
+    <svg viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px">
+      <defs>
+        <radialGradient id="gBg" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2e201c"/><stop offset="100%" stop-color="#1a1210"/></radialGradient>
+      </defs>
+      <rect width="600" height="340" fill="url(#gBg)" rx="6"/>
+      <line x1="0" y1="322" x2="600" y2="322" stroke="#e87722" stroke-width="1.5" opacity="0.25"/>
+      <text x="300" y="20" font-family="DM Sans,sans-serif" font-size="9" fill="#e87722" opacity="0.5" text-anchor="middle" letter-spacing="4">DUA WAJAH WARTAWAN BODREK</text>
+
+      <!-- KIRI: wartawan -->
+      <g transform="translate(106,50)">
+        <!-- Badan -->
+        <rect x="8" y="80" width="70" height="96" rx="5" fill="#4a6fa5"/>
+        <!-- Kepala -->
+        <ellipse cx="43" cy="62" rx="32" ry="34" fill="#c8956a"/>
+        <ellipse cx="43" cy="36" rx="32" ry="15" fill="#3d2a1a"/>
+        <!-- Mata -->
+        <ellipse cx="32" cy="60" rx="5.5" ry="6.5" fill="white"/>
+        <ellipse cx="54" cy="60" rx="5.5" ry="6.5" fill="white"/>
+        <circle cx="32" cy="61" r="3.2" fill="#1a1210"/>
+        <circle cx="54" cy="61" r="3.2" fill="#1a1210"/>
+        <!-- Senyum -->
+        <path d="M30 76 Q43 86 56 76" stroke="#3d2a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Kartu PERS -->
+        <rect x="18" y="90" width="48" height="30" rx="3" fill="#f5f0eb"/>
+        <rect x="18" y="90" width="48" height="10" rx="2.5" fill="#e87722"/>
+        <text x="42" y="99" font-family="DM Sans,sans-serif" font-size="6.5" fill="white" text-anchor="middle" font-weight="bold">PERS</text>
+        <text x="42" y="115" font-family="DM Sans,sans-serif" font-size="5.5" fill="#6b5a52" text-anchor="middle">ID MEDIA</text>
+        <!-- Kamera -->
+        <rect x="70" y="136" width="28" height="20" rx="3" fill="#2d2d2d"/>
+        <circle cx="84" cy="146" r="6.5" fill="#1a1a1a"/>
+        <circle cx="84" cy="146" r="4" fill="#3a3a3a"/>
+        <!-- Label -->
+        <text x="43" y="196" font-family="DM Sans,sans-serif" font-size="11" fill="#e87722" text-anchor="middle" font-weight="700" letter-spacing="1" opacity="0.9">WARTAWAN</text>
+      </g>
+
+      <!-- Panah tengah -->
+      <g transform="translate(232,148)">
+        <line x1="0" y1="20" x2="64" y2="20" stroke="#e87722" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+        <polygon points="64,14 78,20 64,26" fill="#e87722" opacity="0.75"/>
+        <text x="39" y="10" font-family="DM Sans,sans-serif" font-size="8.5" fill="#e87722" opacity="0.65" text-anchor="middle">topeng</text>
+      </g>
+
+      <!-- KANAN: wajah asli pemeras -->
+      <g transform="translate(332,40)">
+        <!-- Badan -->
+        <rect x="8" y="90" width="96" height="110" rx="5" fill="#4a2810"/>
+        <!-- Kepala -->
+        <ellipse cx="56" cy="66" rx="38" ry="40" fill="#3a2010"/>
+        <!-- Mata merah -->
+        <ellipse cx="42" cy="63" rx="7" ry="8" fill="#2a1a1a"/>
+        <ellipse cx="70" cy="63" rx="7" ry="8" fill="#2a1a1a"/>
+        <circle cx="42" cy="64" r="4.2" fill="#ff3300"/>
+        <circle cx="70" cy="64" r="4.2" fill="#ff3300"/>
+        <circle cx="43" cy="62" r="1.5" fill="#ff8866" opacity="0.9"/>
+        <circle cx="71" cy="62" r="1.5" fill="#ff8866" opacity="0.9"/>
+        <!-- Ekspresi marah -->
+        <path d="M38 34 Q56 28 74 34" stroke="#cc4400" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M40 82 Q56 74 72 82" stroke="#cc2200" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Tas uang -->
+        <rect x="20" y="132" width="66" height="46" rx="6" fill="#5a3a10"/>
+        <rect x="20" y="132" width="66" height="16" rx="5" fill="#6a4a18"/>
+        <ellipse cx="53" cy="131" rx="18" ry="8" fill="#6a4a18"/>
+        <text x="53" y="163" font-family="serif" font-size="20" fill="#e8a030" text-anchor="middle" font-weight="bold">Rp</text>
+        <!-- Label -->
+        <text x="53" y="220" font-family="DM Sans,sans-serif" font-size="10" fill="#ff4422" text-anchor="middle" font-weight="700" letter-spacing="1" opacity="0.95">PEMERAS BERKEDOK PERS</text>
+      </g>
+
+      <text x="128" y="312" font-family="Source Serif 4,serif" font-size="11" fill="#6a5a52" text-anchor="middle" font-style="italic">Tampilan luar...</text>
+      <text x="440" y="312" font-family="Source Serif 4,serif" font-size="11" fill="#6a5a52" text-anchor="middle" font-style="italic">...motif sebenarnya</text>
+    </svg>
+    <p class="svg-caption">Ilustrasi: Di balik kartu pers, tersembunyi motif pemerasan berkedok kebebasan pers</p>
+  </div>
+
+  <h2 class="reveal">Apa Itu Wartawan Bodrek?</h2>
+  <p class="reveal">Istilah "bodrek" diambil dari merek obat sakit kepala generik yang murah — sebuah metafora: mereka muncul di mana ada "pening" (masalah), lalu menawarkan solusi dengan imbalan. Wartawan bodrek adalah orang yang mengaku sebagai jurnalis namun tidak memiliki kredibilitas, afiliasi resmi pada media yang terdaftar di Dewan Pers, maupun komitmen terhadap kode etik jurnalistik.</p>
+  <p class="reveal">Di kalangan jurnalis, istilah ini sudah beredar sejak 1980-an. Selain "bodrek", muncul pula sebutan turunan: <em>muntaber</em> (muncul tanpa berita), <em>CNN</em> (cuma nanya-nanya), <em>WTS</em> (wartawan tanpa surat kabar), dan <em>wargad</em> (wartawan gadungan).</p>
+
+  <div class="stat-row reveal">
+    <div class="stat-card"><div class="stat-num">2.326</div><div class="stat-label">perusahaan media terdata Dewan Pers per November 2025</div></div>
+    <div class="stat-card"><div class="stat-num">~40%</div><div class="stat-label">media belum terverifikasi standar profesional Dewan Pers</div></div>
+    <div class="stat-card"><div class="stat-num">Ps. 368</div><div class="stat-label">KUHP &mdash; ancaman pidana pemerasan bagi pelaku</div></div>
+    <div class="stat-card"><div class="stat-num">UU 40</div><div class="stat-label">Tahun 1999 &mdash; tidak melindungi praktik pemerasan berkedok pers</div></div>
+  </div>
+
+  <h2 class="reveal">Mengapa Sekolah Jadi Target?</h2>
+  <p class="reveal">Dari sekian banyak instansi publik, sekolah negeri memiliki kombinasi yang membuat mereka rentan secara struktural. Pertama, mereka mengelola dana publik yang besar &mdash; Dana BOS yang nilainya bisa ratusan juta per tahun &mdash; namun dengan kapasitas hukum dan komunikasi publik yang sangat terbatas. Kepala sekolah adalah pendidik, bukan praktisi hukum atau humas profesional.</p>
+  <p class="reveal">Kedua, sekolah memiliki reputasi yang mudah dicoreng. Satu artikel negatif &mdash; bahkan tanpa bukti sahih &mdash; dapat mengguncang kepercayaan orang tua murid, pengawas dinas, bahkan masyarakat sekitar. Ketiga, budaya menghindari konflik di institusi pendidikan kerap membuat pihak sekolah memilih "damai" ketimbang melawan.</p>
+
+  <div class="pull-quote reveal">
+    <p>"Biasanya mereka kerap mengunjungi sekolah untuk mengungkit-ungkit data keuangan Dana BOS. Dalam kondisi terpojok, biasanya sekolah diberi uang agar segera pergi. Namun beberapa hari kemudian, teman-teman mereka menyusul datang untuk keperluan yang sama. Ibaratnya seperti borok yang terinfeksi."</p>
+    <cite>&mdash; Narasumber pakar media, Harian Garut News, 2024</cite>
+  </div>
+
+  <h2 class="reveal">Modus Operandi di Sekolah</h2>
+  <p class="reveal">Pola operasi wartawan bodrek di lingkungan sekolah sudah cukup terpola dan berulang di berbagai daerah. Memahami polanya adalah langkah pertama perlindungan.</p>
+
+  <div class="modus-box reveal">
+    <h3>Ragam Modus yang Teridentifikasi</h3>
+    <ul class="modus-list">
+      <li><span class="num">01</span><div><strong>Langganan koran berbayar</strong> &mdash; Datang menawarkan berlangganan media mereka. Penolakan dijadikan pemicu pemberitaan negatif.</div></li>
+      <li><span class="num">02</span><div><strong>Foto kondisi fisik sekolah</strong> &mdash; Memotret kerusakan ringan bangunan sebagai "bukti" dugaan korupsi penggunaan dana BOS.</div></li>
+      <li><span class="num">03</span><div><strong>Ancaman pemberitaan viral</strong> &mdash; Mengancam akan menyebarluaskan berita buruk jika tidak ada "uang damai" atau "biaya liputan."</div></li>
+      <li><span class="num">04</span><div><strong>Modus digital via WhatsApp</strong> &mdash; Mengirim foto KTA ke nomor kepala sekolah, meminta sumbangan dengan ancaman laporan ke dinas.</div></li>
+      <li><span class="num">05</span><div><strong>Pola berulang bergiliran</strong> &mdash; Setelah satu oknum pergi, oknum lain dari jaringan yang sama datang kembali dengan modus serupa.</div></li>
+      <li><span class="num">06</span><div><strong>"Edisi lanjutan" sebagai tekanan</strong> &mdash; Menutup artikel dengan ancaman terselubung: "berita selanjutnya akan mengungkap lebih banyak."</div></li>
+    </ul>
+  </div>
+
+  <div class="skenario reveal">
+    <div class="skenario-label">Skenario Representatif &middot; Berdasarkan Pola Kasus Nyata</div>
+    <p>Bayangkan sebuah sekolah dasar negeri di Jakarta yang suatu hari didatangi seseorang mengaku wartawan dari media online. Ia datang bukan untuk meliput prestasi siswa, melainkan menawarkan langganan koran seharga Rp 50.000 per eksemplar. Ketika pihak sekolah menolak, ia mulai memotret kondisi fisik sekolah &mdash; konblok yang retak, plafon yang perlu diperbaiki. Beberapa hari kemudian, terbit artikel berjudul sensasional yang menuding kepala sekolah "diduga menyimpangkan dana BOS." Pihak sekolah membuat surat klarifikasi resmi. Namun klarifikasi itu tidak pernah dimuat. Publik hanya membaca satu versi cerita.</p>
+  </div>
+
+  <div class="svg-section reveal">
+    <svg viewBox="0 0 860 800" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:860px">
+      <defs>
+        <radialGradient id="bgCy" cx="50%" cy="50%" r="55%"><stop offset="0%" stop-color="#231815"/><stop offset="100%" stop-color="#14100f"/></radialGradient>
+        <marker id="arr" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto"><path d="M0,0 L0,10 L10,5 z" fill="#e87722" opacity="0.85"/></marker>
+      </defs>
+      <rect width="860" height="800" fill="url(#bgCy)" rx="8"/>
+      <text x="430" y="34" font-family="DM Sans,sans-serif" font-size="12" fill="#e87722" opacity="0.55" text-anchor="middle" letter-spacing="5">SIKLUS PERANGKAP WARTAWAN BODREK</text>
+
+      <!-- Orbit -->
+      <circle cx="430" cy="410" r="258" fill="none" stroke="#e87722" stroke-width="0.6" stroke-dasharray="5,7" opacity="0.2"/>
+
+      <!-- Tengah -->
+      <circle cx="430" cy="410" r="84" fill="#2e201c" stroke="#e87722" stroke-width="2" opacity="0.85"/>
+      <text x="430" y="396" font-family="Playfair Display,serif" font-size="17" fill="#e87722" text-anchor="middle" font-style="italic">Siklus</text>
+      <text x="430" y="416" font-family="Playfair Display,serif" font-size="17" fill="#e87722" text-anchor="middle" font-style="italic">Tak Berujung</text>
+      <text x="430" y="434" font-family="DM Sans,sans-serif" font-size="11" fill="#6a5a52" text-anchor="middle">berulang terus</text>
+
+      <!-- Panah -->
+      <path d="M462,156 A258,258 0 0,1 652,228" fill="none" stroke="#e87722" stroke-width="2" stroke-dasharray="6,5" opacity="0.55" marker-end="url(#arr)"/>
+      <path d="M674,260 A258,258 0 0,1 664,564" fill="none" stroke="#e87722" stroke-width="2" stroke-dasharray="6,5" opacity="0.55" marker-end="url(#arr)"/>
+      <path d="M640,594 A258,258 0 0,1 462,656" fill="none" stroke="#cc2200" stroke-width="2" stroke-dasharray="6,5" opacity="0.55" marker-end="url(#arr)"/>
+      <path d="M398,656 A258,258 0 0,1 220,594" fill="none" stroke="#cc2200" stroke-width="2" stroke-dasharray="6,5" opacity="0.55" marker-end="url(#arr)"/>
+      <path d="M196,564 A258,258 0 0,1 186,260" fill="none" stroke="#cc2200" stroke-width="2" stroke-dasharray="6,5" opacity="0.55" marker-end="url(#arr)"/>
+      <path d="M208,228 A258,258 0 0,1 398,156" fill="none" stroke="#e87722" stroke-width="2" stroke-dasharray="6,5" opacity="0.55" marker-end="url(#arr)"/>
+
+      <!-- NODE 1: Atas -->
+      <g transform="translate(430,152)">
+        <circle r="54" fill="#2e201c" stroke="#e87722" stroke-width="2"/>
+        <text y="-14" font-size="28" text-anchor="middle">🎯</text>
+        <text y="16" font-family="DM Sans,sans-serif" font-size="14" text-anchor="middle" fill="#f0e8e0" font-weight="700">Oknum Datang</text>
+        <text y="84" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">tawar langganan</text>
+        <text y="100" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">/ minta uang</text>
+      </g>
+
+      <!-- NODE 2: Kanan atas -->
+      <g transform="translate(662,244)">
+        <circle r="54" fill="#2e201c" stroke="#e87722" stroke-width="2"/>
+        <text y="-14" font-size="28" text-anchor="middle">❌</text>
+        <text y="16" font-family="DM Sans,sans-serif" font-size="14" text-anchor="middle" fill="#f0e8e0" font-weight="700">Sekolah Menolak</text>
+        <text y="-76" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">tidak memberi</text>
+        <text y="-60" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">apa yang diminta</text>
+      </g>
+
+      <!-- NODE 3: Kanan bawah -->
+      <g transform="translate(662,578)">
+        <circle r="54" fill="#3a1a10" stroke="#cc2200" stroke-width="2"/>
+        <text y="-14" font-size="28" text-anchor="middle">📰</text>
+        <text y="16" font-family="DM Sans,sans-serif" font-size="14" text-anchor="middle" fill="#f0e8e0" font-weight="700">Berita Negatif</text>
+        <text y="-76" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">judul sensasional</text>
+        <text y="-60" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">tanpa verifikasi</text>
+      </g>
+
+      <!-- NODE 4: Bawah -->
+      <g transform="translate(430,668)">
+        <circle r="54" fill="#2e201c" stroke="#cc2200" stroke-width="2"/>
+        <text y="-14" font-size="28" text-anchor="middle">📝</text>
+        <text y="16" font-family="DM Sans,sans-serif" font-size="14" text-anchor="middle" fill="#f0e8e0" font-weight="700">Sekolah Klarifikasi</text>
+        <text y="84" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">surat resmi dikirim</text>
+        <text y="100" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">ke media bodrek</text>
+      </g>
+
+      <!-- NODE 5: Kiri bawah -->
+      <g transform="translate(198,578)">
+        <circle r="54" fill="#3a1a10" stroke="#cc2200" stroke-width="2"/>
+        <text y="-14" font-size="28" text-anchor="middle">🔇</text>
+        <text y="16" font-family="DM Sans,sans-serif" font-size="14" text-anchor="middle" fill="#f0e8e0" font-weight="700">Diabaikan</text>
+        <text y="-76" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">klarifikasi tak pernah</text>
+        <text y="-60" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">dimuat media bodrek</text>
+      </g>
+
+      <!-- NODE 6: Kiri atas -->
+      <g transform="translate(198,244)">
+        <circle r="54" fill="#3a1a10" stroke="#e87722" stroke-width="2"/>
+        <text y="-14" font-size="28" text-anchor="middle">💔</text>
+        <text y="16" font-family="DM Sans,sans-serif" font-size="14" text-anchor="middle" fill="#f0e8e0" font-weight="700">Reputasi Rusak</text>
+        <text y="-76" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">publik hanya baca</text>
+        <text y="-60" font-family="DM Sans,sans-serif" font-size="12" text-anchor="middle" fill="#8a7a72">versi oknum</text>
+      </g>
+
+      <!-- Label sisi -->
+      <text x="626" y="416" font-family="DM Sans,sans-serif" font-size="12" fill="#e87722" text-anchor="middle" opacity="0.7">📸 Foto &amp;</text>
+      <text x="626" y="432" font-family="DM Sans,sans-serif" font-size="12" fill="#e87722" text-anchor="middle" opacity="0.7">Ancaman</text>
+      <text x="234" y="416" font-family="DM Sans,sans-serif" font-size="12" fill="#cc4422" text-anchor="middle" opacity="0.7">😰 Sekolah</text>
+      <text x="234" y="432" font-family="DM Sans,sans-serif" font-size="12" fill="#cc4422" text-anchor="middle" opacity="0.7">Tertekan</text>
+    </svg>
+    <p class="svg-caption">Diagram: Siklus perangkap wartawan bodrek yang terus berulang di lingkungan sekolah</p>
+  </div>
+
+  <h2 class="reveal">Mengenali Wartawan Bodrek</h2>
+  <p class="reveal">Wakil Dewan Pers M. Agung Dharmajaya mengidentifikasi sejumlah ciri khas wartawan bodrek: datang bergerombol, berpenampilan sok jago, tidak mengenal etika jurnalistik, mengaku anggota organisasi wartawan tapi tidak jelas, serta meremehkan bahkan mengancam narasumber. Mereka juga tidak memiliki sertifikat kompetensi dari Dewan Pers.</p>
+  <p class="reveal">Wartawan profesional datang dengan surat tugas resmi dari redaksi, memiliki ID pers yang bisa diverifikasi ke Dewan Pers, dan bertanya berdasarkan substansi &mdash; bukan mencari-cari celah kesalahan. Mereka tidak pernah meminta uang, langganan berbayar, atau "biaya liputan" dalam bentuk apapun.</p>
+
+  <hr class="divider"/>
+
+  <h2 class="reveal">Landasan Hukum Melawan Pemerasan</h2>
+  <p class="reveal">Banyak kepala sekolah tidak menyadari bahwa mereka memiliki perlindungan hukum yang kuat. Praktik wartawan bodrek bukanlah aktivitas jurnalistik yang dilindungi UU Pers &mdash; melainkan tindak pidana murni yang dapat dilaporkan ke polisi.</p>
+
+  <div class="hukum-wrap reveal">
+    <table class="hukum-table">
+      <thead><tr><th>Dasar Hukum</th><th>Isi Ketentuan</th><th>Relevansi</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Pasal 368 KUHP</strong></td><td>Pemerasan dengan ancaman kekerasan atau pencemaran nama</td><td>Berlaku bila ada permintaan uang disertai ancaman pemberitaan</td></tr>
+        <tr><td><strong>Pasal 369 KUHP</strong></td><td>Pengancaman untuk memaksa seseorang menyerahkan sesuatu</td><td>Berlaku saat ada ancaman "akan diberitakan" jika tidak membayar</td></tr>
+        <tr><td><strong>Pasal 335 KUHP</strong></td><td>Perbuatan tidak menyenangkan disertai ancaman atau tekanan</td><td>Berlaku untuk intimidasi verbal di lingkungan sekolah</td></tr>
+        <tr><td><strong>UU ITE</strong></td><td>Ancaman melalui media elektronik</td><td>Berlaku untuk modus ancaman via WhatsApp</td></tr>
+        <tr><td><strong>UU Pers No. 40/1999</strong></td><td>Tidak melindungi praktik pemerasan berkedok jurnalisme</td><td>Dewan Pers menegaskan pemerasan bukan aktivitas jurnalistik</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="reveal">Panduan Praktis Bagi Sekolah</h2>
+  <p class="reveal">PWI dan Dewan Pers telah menggelar pelatihan di berbagai daerah khusus untuk membekali kepala sekolah dan staf dalam menghadapi situasi ini. Berikut langkah-langkah yang direkomendasikan:</p>
+
+  <div class="tips-grid reveal">
+    <div class="tip-card"><div class="tip-header"><span class="tip-icon">&#128269;</span><span class="tip-title">Verifikasi Identitas</span></div><p class="tip-body">Minta surat tugas resmi dan ID pers. Cek medianya di dewanpers.or.id. Wartawan profesional tidak akan keberatan diminta verifikasi.</p></div>
+    <div class="tip-card"><div class="tip-header"><span class="tip-icon">&#128683;</span><span class="tip-title">Jangan Memberi Uang</span></div><p class="tip-body">Memberi "uang damai" justru menjadikan sekolah target berulang. Tolak dengan tenang, arahkan ke humas dinas atau kominfo daerah.</p></div>
+    <div class="tip-card"><div class="tip-header"><span class="tip-icon">&#128203;</span><span class="tip-title">Dokumentasi Bukti</span></div><p class="tip-body">Catat nama, media yang diklaim, nomor HP, dan kronologi. Simpan tangkapan layar ancaman via WhatsApp sebagai bukti.</p></div>
+    <div class="tip-card"><div class="tip-header"><span class="tip-icon">&#9997;&#65039;</span><span class="tip-title">Gunakan Hak Jawab</span></div><p class="tip-body">Jika berita negatif terbit, sekolah berhak meminta hak jawab. Media wajib memuatnya. Jika ditolak, adukan ke Dewan Pers.</p></div>
+    <div class="tip-card"><div class="tip-header"><span class="tip-icon">&#128110;</span><span class="tip-title">Laporkan ke Aparat</span></div><p class="tip-body">Ketua Dewan Pers menyatakan: "Silakan tangkap saja, jangan dibiarkan berkeliaran." Pemerasan adalah tindak pidana.</p></div>
+    <div class="tip-card"><div class="tip-header"><span class="tip-icon">&#128226;</span><span class="tip-title">Bangun Transparansi Aktif</span></div><p class="tip-body">Publikasikan penggunaan dana BOS secara mandiri. Sekolah yang transparan dan terdokumentasi jauh lebih sulit dijadikan target.</p></div>
+  </div>
+
+  <h2 class="reveal">Ketika Melaporkan Terasa Lebih Berbahaya dari Diam</h2>
+  <p class="reveal">Di atas kertas, jalur hukum tersedia. Dewan Pers bisa diadukan, polisi bisa menerima laporan, hak jawab bisa digunakan. Tapi di lapangan, kenyataannya jauh lebih kompleks. Banyak kepala sekolah yang tahu mereka bisa melapor &mdash; namun tetap memilih diam. Bukan karena tidak tahu hak mereka, melainkan karena ada pertimbangan lain yang lebih berat.</p>
+  <p class="reveal">Ada kekhawatiran bahwa laporan justru akan membuka pintu pemeriksaan administratif yang lebih luas. Pengelolaan dana BOS, sekecil apapun ketidaksesuaian teknisnya, bisa menjadi celah. Kepala sekolah yang merasa administrasinya tidak sempurna lebih memilih menyelesaikan masalah secara diam-diam daripada mengundang perhatian lebih besar.</p>
+  <p class="reveal">Yang lebih struktural lagi &mdash; oknum-oknum ini seringkali beroperasi dengan rasa percaya diri yang tidak proporsional, seolah mereka tahu bahwa tidak akan ada konsekuensi serius atas tindakan mereka. Dari mana rasa percaya diri itu berasal, sulit diverifikasi. Namun pola yang berulang di berbagai kota dengan modus yang hampir identik menunjukkan bahwa fenomena ini bukan sekadar aksi individual oportunistik.</p>
+
+  <div class="kenapa-box reveal">
+    <div class="kenapa-label">Faktor Struktural yang Mempersulit Perlawanan</div>
+    <div class="kenapa-item"><span class="kenapa-icon">&#9878;&#65039;</span><div><strong>Posisi rentan administratif</strong><p>Ketidaksempurnaan dokumen sekecil apapun bisa digunakan sebagai leverage. Kepala sekolah khawatir laporan berbalik jadi bumerang.</p></div></div>
+    <div class="kenapa-item"><span class="kenapa-icon">&#128260;</span><div><strong>Ekosistem yang saling melindungi</strong><p>Oknum beroperasi dalam jaringan &mdash; satu pergi, yang lain datang. Melawan satu tidak menyelesaikan masalah strukturalnya.</p></div></div>
+    <div class="kenapa-item"><span class="kenapa-icon">&#128566;</span><div><strong>Budaya diam institusional</strong><p>Sekolah sebagai institusi pendidikan cenderung menghindari konflik publik. Reputasi dianggap lebih berharga dari kebenaran jangka pendek.</p></div></div>
+    <div class="kenapa-item"><span class="kenapa-icon">&#128225;</span><div><strong>Ketimpangan kemampuan menyebar informasi</strong><p>Media bodrek bisa menerbitkan artikel dalam hitungan jam. Sekolah tidak punya kanal yang setara untuk merespons secara cepat dan luas.</p></div></div>
+  </div>
+
+  <p class="reveal">Inilah mengapa transparansi aktif &mdash; bukan hanya reaktif &mdash; menjadi kunci. Sekolah yang secara rutin mempublikasikan penggunaan anggaran, kondisi bangunan, dan program kegiatannya kepada komunitas sekitar, pada dasarnya sedang membangun pertahanan yang jauh lebih kokoh dari sekadar kemampuan merespons saat diserang.</p>
+
+  <hr class="divider"/>
+
+  <h2 class="reveal">Kebebasan Pers Bukan Ruang Bebas Intimidasi</h2>
+  <p class="reveal">Fenomena wartawan bodrek adalah pengkhianatan terhadap semangat kebebasan pers yang diperjuangkan dengan susah payah sejak reformasi. Kebebasan pers lahir untuk menjaga kekuasaan tetap akuntabel &mdash; bukan untuk menjadi senjata memeras institusi pendidikan yang justru sedang berjuang dengan keterbatasan anggaran.</p>
+  <p class="reveal">Sekolah bukan musuh pers. Justru sebaliknya &mdash; jurnalisme yang sehat adalah mitra strategis dunia pendidikan untuk mendorong transparansi dan akuntabilitas. Yang perlu dilawan bersama-sama adalah oknum yang mencuri jubah wartawan demi kepentingan pribadi.</p>
+
+  <div class="pull-quote reveal">
+    <p>"Kalau wartawan bekerja sesuai UU Pers dan Kode Etik, tidak akan merugikan siapa pun. Kalau kinerjanya baik, transparan, dan tidak ada praktik korupsi, tidak perlu takut pada wartawan bodrek."</p>
+    <cite>&mdash; Syaiful Anam, Seminar Jurnalistik JMSI Jatim, Lamongan, 2025</cite>
+  </div>
+
+  <p class="reveal">Melawan wartawan bodrek bukan hanya tugas aparat penegak hukum. Literasi media, keberanian institusi, dan kolaborasi antara Dewan Pers, organisasi wartawan, serta masyarakat pendidikan menjadi kunci. Pesannya sederhana: jika ada yang meminta uang dengan ancaman pemberitaan &mdash; itu bukan jurnalisme. Itu tindak pidana.</p>
+
+  <div class="discord-cta reveal">
+    <div class="discord-inner">
+      <div class="discord-icon">&#128172;</div>
+      <div class="discord-text">
+        <strong>Punya pengalaman serupa?</strong>
+        <p>Jika ingin melihat contoh nyata atau berdiskusi langsung dengan penulis, bergabunglah ke server Discord komunitas KBDI.</p>
+      </div>
+      <a href="https://discord.gg/63S9tMaa" target="_blank" class="discord-btn">Gabung Discord</a>
+    </div>
+  </div>
+
+  <div class="referensi reveal">
+    <h3>Referensi</h3>
+    <ul>
+      <li>Dewan Pers, Sosialisasi Wartawan Profesional vs Gadungan, 2008 &mdash; <a href="https://www.wartakini.co/2022/12/wartawan-bodrek-atau-abal-abal-mereka-itu-bukanlah-wartawan/" target="_blank">wartakini.co</a></li>
+      <li>Harian Garut News, "Tak Perlu Takut Menghadapi Wartawan Abal-Abal", Maret 2024 &mdash; <a href="https://hariangarutnews.com/2024/03/18/tak-perlu-takut-menghadapi-wartawan-abal-abal-ini-kata-para-pakar-media-di-garut/" target="_blank">hariangarutnews.com</a></li>
+      <li>Lensa Warga, "PWI Jombang Goes to School", Februari 2026 &mdash; <a href="https://www.lensawarga.com/news/wartawan-bodrex-dan-media-abal-abal-mengatasnamakan-pers-untuk-memeras-pwi-jombang-turun-tangan/" target="_blank">lensawarga.com</a></li>
+      <li>Kabar Rakyat, "JMSI Jatim Seminar Jurnalistik Lamongan", Oktober 2025 &mdash; <a href="https://kabarrakyat.id/jmsi-jatim-dan-fkbn-gelar-seminar-jurnalistik-di-lamongan-bahas-cara-hadapi-wartawan-bodrek" target="_blank">kabarrakyat.id</a></li>
+      <li>Tampahan.com, "Modus Baru Pemerasan Mengaku Wartawan", April 2026 &mdash; <a href="https://www.tampahan.com/2026/04/modus-baru-pemerasan-mengaku-wartawan.html" target="_blank">tampahan.com</a></li>
+      <li>GrowMedia Indo, "Intimidasi Kepala SD Tapanuli Selatan", Maret 2026 &mdash; <a href="https://www.growmedia-indo.com/2026/03/ngaku-wartawan-tanpa-id-pers-oknum.html" target="_blank">growmedia-indo.com</a></li>
+      <li>MetroIndoNews.com, "Oknum Plt Kepala SDN Malaka Sari 04 Berlagak Seperti Penguasa", Oktober 2025 &mdash; <a href="https://metroindonews.com/oknum-plt-kepala-sdn-malaka-sari-04-berlagak-seperti-penguasa/" target="_blank">metroindonews.com</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+  const savedTheme = localStorage.getItem('kbdi-theme');
+  if (savedTheme === 'light') document.documentElement.classList.add('light');
+
+  fetch('https://edukbdi.github.io/header.html')
+    .then(r => r.text())
+    .then(html => {
+      document.body.insertAdjacentHTML('afterbegin', html);
+      const header = document.getElementById('kbdi-header');
+      if (savedTheme === 'light') header.classList.add('kbdi-light');
+      document.getElementById('kbdiThemeToggle').addEventListener('click', function() {
+        const isLight = document.documentElement.classList.toggle('light');
+        header.classList.toggle('kbdi-light', isLight);
+        localStorage.setItem('kbdi-theme', isLight ? 'light' : 'dark');
+        const footer = document.getElementById('kbdi-footer');
+        if (footer) footer.classList.toggle('kbdi-light', isLight);
+      });
+    });
+
+  fetch('https://edukbdi.github.io/footer.html')
+    .then(r => r.text())
+    .then(html => {
+      document.body.insertAdjacentHTML('beforeend', html);
+      const footer = document.getElementById('kbdi-footer');
+      if (footer && savedTheme === 'light') footer.classList.add('kbdi-light');
+    });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
